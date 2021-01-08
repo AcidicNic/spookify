@@ -1,1 +1,43 @@
-{{topArtists}}
+
+
+
+
+
+
+
+
+
+<!-- This is temporary, it's just for proof of concept :) -->
+<div>
+    <h3>Your Top Artists</h3>
+    {{#each topArtists}}
+        <a href="{{this.external_urls.spotify}}">{{this.name}}</a><br>
+        genres: {{#each this.genres}} {{this}}, {{/each}}<br>
+        followers: {{this.followers.total}}<br>
+        popularity: {{this.popularity}}
+        <br><br>
+    {{/each}}
+</div>
+
+<br><br><br>
+
+<div>
+    <h3>Your Top Tracks</h3>
+    {{#each topTracks}}
+        track: <a href="{{this.external_urls.spotify}}">{{this.name}}</a><br>
+
+        {{#ifEqls this.album.album_type 'ALBUM' }}
+        album: <a href="{{this.album.external_urls.spotify}}">{{this.album.name}}</a><br>
+        track number: {{this.track_number}} / {{this.album.total_tracks}}
+        {{/ifEqls}}
+
+        {{#ifEqls this.album.album_type 'SINGLE' }}
+        album: {{this.album.name}} (Single)
+        {{/ifEqls}}
+        
+        artist(s): {{# each this.artists}} {{this.name}}, {{/each}}<br>
+        popularity: {{this.popularity}}<br>
+        release date: {{this.album.release_date}}<br>
+        <br><br>
+    {{/each}}
+</div>

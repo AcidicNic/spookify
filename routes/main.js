@@ -5,7 +5,7 @@ const router = express.Router();
 // Spotify API wrapper setup
 const SpotifyWebApi = require('spotify-web-api-node');
 
-const scopes = ['user-read-private', 'user-read-email'],
+const scopes = ['user-read-private', 'user-read-email', 'user-library-read', 'user-follow-read', 'user-top-read'],
     redirectUri = process.env.SPOTIFY_REDIRECT_URI,
     clientId = process.env.SPOTIFY_ID,
     showDialog = true,
@@ -14,7 +14,8 @@ const scopes = ['user-read-private', 'user-read-email'],
 
 const spotifyApi = new SpotifyWebApi({
     redirectUri: redirectUri,
-    clientId: process.env.SPOTIFY_ID
+    clientId: process.env.SPOTIFY_ID,
+    clientSecret: process.env.SPOTIFY_SECRET
 });
 
 /* Get home page */
@@ -36,20 +37,35 @@ router.get('/callback', (req, res) => {
 });
 
 /* Gets all the data needed to display results */
-router.get('/result', (req, res) => {
-    var token = req.query.access_token;
-    // spotifyApi.setAccessToken(token);
+router.get('/result', async (req, res) => {
+    spotifyApi.setAccessToken(req.query.access_token);
 
-    await spotifyApi.getMyTopArtists()
+    try {
+        var topTracksRaw = await spotifyApi.getMyTopTracks();
+        var topTracks = topTracksRaw.body.items;
+        console.log(topTracks);
+
+        var topArtistsRaw = await spotifyApi.getMyTopArtists();
+        var topArtists = topArtistsRaw.body.items;
+        console.log(topArtists);
+
+        spotifyApi.resetAccessToken();
+        res.render("results", {topArtists, topTracks});
+
+    } catch (err) {
+        console.log(err);
+        res.render("results", {err});
+    }
+
+    spotifyApi.getMyTopArtists()
     .then(function(data) {
         let topArtists = data.body.items;
         console.log(topArtists);
-        // spotifyApi.resetAccessToken();
-        res.render("results", {topArtists});
+
+
     }, function(err) {
         // spotifyApi.resetAccessToken();
-        console.log('Something went wrong!\n', err);
-        res.render("results", {topArtists: err});
+
     });
 
 });

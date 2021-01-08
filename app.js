@@ -14,7 +14,12 @@ app.engine('hbs', hbs({
     extname: '.hbs',
     layoutDir: __dirname + '/views',
     defaultLayout: 'base',
-    helpers: {}
+    helpers: {
+        // {{#ifEqls true false}} this will not be displayed {{/ifEqls}}
+        ifEqls: function(arg, arg2, options) {
+        return (arg == arg2) ? options.fn(this) : options.inverse(this);
+        }
+    }
 }));
 app.set('view engine', 'hbs');
 
