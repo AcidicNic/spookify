@@ -28,13 +28,13 @@
 
         {{#ifEqls this.album.album_type 'ALBUM' }}
         album: <a href="{{this.album.external_urls.spotify}}">{{this.album.name}}</a><br>
-        track number: {{this.track_number}} / {{this.album.total_tracks}}
+        track number: {{this.track_number}} / {{this.album.total_tracks}}<br>
         {{/ifEqls}}
 
         {{#ifEqls this.album.album_type 'SINGLE' }}
-        album: {{this.album.name}} (Single)
+        album: {{this.album.name}} (Single)<br>
         {{/ifEqls}}
-        
+
         artist(s): {{# each this.artists}} {{this.name}}, {{/each}}<br>
         popularity: {{this.popularity}}<br>
         release date: {{this.album.release_date}}<br>
