@@ -57,17 +57,6 @@ router.get('/result', async (req, res) => {
         res.render("results", {err});
     }
 
-    spotifyApi.getMyTopArtists()
-    .then(function(data) {
-        let topArtists = data.body.items;
-        console.log(topArtists);
-
-
-    }, function(err) {
-        // spotifyApi.resetAccessToken();
-
-    });
-
 });
 
 module.exports = router;
