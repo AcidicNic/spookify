@@ -1,0 +1,6 @@
+<script type="text/javascript">
+    function sendTokenToServer() {
+        window.location.replace(`${window.location.origin}/result?${window.location.hash.substring(1)}`);
+    }
+    window.onload = sendTokenToServer;
+</script>
