@@ -22,10 +22,6 @@ app.engine('hbs', hbs({
         // {{#ifGreater int int}} {{/ifGreater}}
         ifGreater: function(arg, arg2, options) {
         return (arg > arg2) ? options.fn(this) : options.inverse(this);
-        },
-        // {{#ifLessOrEql int int}} {{/ifLessOrEql}}
-        ifLessOrEql: function(arg, arg2, options) {
-        return (arg <= arg2) ? options.fn(this) : options.inverse(this);
         }
     }
 }));

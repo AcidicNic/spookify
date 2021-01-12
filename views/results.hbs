@@ -2,41 +2,110 @@
 
 <div id="resultsCarousel" class="carousel slide carousel-fade" data-wrap="false" data-interval="false">
     <div class="carousel-inner text-dark">
-        <ol class="carousel-indicators">
+        <ol class="carousel-indicators text-dark">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="9"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="10"></li>
         </ol>
         <div class="carousel-item active bg-white p-4">
+            <div class="mx-4 my-4 px-4">
+                OooOooOOOOoOooOOo<br>
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4">
+            <div class="mx-4 my-4 px-4">
+                Oops! Looks like you caught me XD... sometimes us ghosts do that when we are longing for our lives hehe<br>
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4">
+            <div class="mx-4 my-4 px-4">
+                Anywayssss I'm Spook and I'm going to be taking you on a journey to get to know your living listening habits... are you ready to see my psychic abilies?<br>
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4">
+            <div class="mx-4 my-4 px-4">
+                Here we go!<br>
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4">
             <div class="mx-4 my-4 px-4">
                 Hmm<sup>m<sup>m<sup>m<sup>m...</sup></sup></sup></sup> I see.<br>
             </div>
         </div>
         <div class="carousel-item bg-white p-4">
             <div class="mx-4 my-4 px-4">
-                Wow! You must really like {{topArtists.0.name}}.<br>
-                I noticed that you listen to their music a whole bunch.<br>
+                You sure listen to {{topArtists.0.name}} a lot.<br>
+                Are you trying to get them to notice you or something? I can haunt them if you'd like :)<br>
             </div>
         </div>
         <div class="carousel-item bg-white p-4">
             <div class="mx-4 my-4 px-4">
-                Oh and let me guess, your favorite song is.....<br>
-                {{topTracks.0.name}} by
+                You've been circulating
+                "{{topTracks.0.name}}" by
                 {{#ifGreater topTracks.0.artists.length 1}}
-                    {{#each topTracks.0.artists}}{{#if @last}}{{this.name}}{{else}} {{this.name}}, {{/if}}{{/each}}<br>
+                    {{#each topTracks.0.artists}}{{#if @last}}{{this.name}}{{else}} {{this.name}}, {{/if}}{{/each}}
                 {{else}}
-                    {{topTracks.0.artists.0.name}}<br>
+                    {{topTracks.0.artists.0.name}}
                 {{/ifGreater}}
+                 a lot! Be careful you don't overplay it and run it into the grave. Although, I could definitely use the company XD<br>
             </div>
         </div>
         <div class="carousel-item bg-white p-4">
             <div class="mx-4 my-4 px-4">
                 Now let's see how popular the music you listen to is.<br>
                 {{#ifGreater popularityAvg 50}}
-                    I'm sensing that you're mostly into well known music.<br>
+                    I'm sensing that you're into the popular stuff... You would be a good DJ for a monster mash!<br>
                 {{else}}
-                    I'm sensing that you're mostly into obscure music.<br>
+                    This spectre spectates that your music is mostly obscure!<br>
                 {{/ifGreater}}
                 I'd probably give you a {{popularityAvg}}/100 on the popularity scale.<br>
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4">
+            <div class="mx-4 my-4 px-4">
+                I had a really good time with you today. We should listen to some haunting bops together some day... <br>
+                My favorite band is Dead Man's Bones.<br>
+                I know I'll see you again someday but until then, farewell my friend &#60;3
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4 text-left">
+            <div class="mx-4 my-4 px-4">
+                <h4>Your Top Artists</h4>
+                <ol>
+                    {{#each topArtists}}
+                    <li>
+                        <a href="{{this.external_urls.spotify}}">{{this.name}}</a>
+                        {{#if this.genres}}
+                            {{#ifGreater this.genres.length 1}} | {{#each this.genres}}{{#if @last}}{{this}}{{else}}{{this}}, {{/if}}{{/each}}
+                            {{else}} | {{this.genres}}
+                            {{/ifGreater}}
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                </ol>
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4 text-left">
+            <div class="mx-4 my-4 px-4">
+                <h4>Your Top Songs</h4>
+                <ol>
+                    {{#each topTracks}}
+                    <li>
+                        <a href="{{this.external_urls.spotify}}">{{this.name}}</a> | 
+                        {{#ifGreater this.artists.length 1}}{{#each this.artists}}{{#if @last}}{{this.name}}{{else}} {{this.name}}, {{/if}}{{/each}}
+                        {{else}}{{this.artists.0.name}}
+                        {{/ifGreater}}
+                    </li>
+                    {{/each}}
+                </ol>
             </div>
         </div>
     </div>
@@ -48,37 +117,4 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
-</div>
-
-<div class="dd-none">
-    <h3>Your Top Artists</h3>
-    {{#each topArtists}}
-        <a href="{{this.external_urls.spotify}}">{{this.name}}</a><br>
-        {{#if this.genres}}
-            {{#ifGreater this.genres.length 1}}
-                genres: {{#each this.genres}}{{#if @last}}{{this}}{{else}}{{this}}, {{/if}}{{/each}}<br>
-            {{else}}
-                genre: {{this.genres}}<br>
-            {{/ifGreater}}
-        {{/if}}
-        followers: {{this.followers.total}}<br>
-        popularity: {{this.popularity}}
-        <br><br>
-    {{/each}}
-
-    <br><br><br>
-    <h3>Your Top Tracks</h3>
-    {{#each topTracks}}
-        <a href="{{this.external_urls.spotify}}">{{this.name}}</a><br>
-        album: <a href="{{this.album.external_urls.spotify}}">{{this.album.name}}</a><br>
-        {{#ifGreater this.artists.length 1}}
-            artists: {{#each this.artists}}{{#if @last}}{{this.name}}{{else}} {{this.name}}, {{/if}}{{/each}}<br>
-        {{else}}
-            artist: {{this.artists.0.name}}<br>
-        {{/ifGreater}}
-
-        popularity: {{this.popularity}}<br>
-        release date: {{this.album.release_date}}<br>
-        <br><br>
-    {{/each}}
 </div>

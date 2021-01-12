@@ -11,3 +11,7 @@ body {
     border-radius: 15px;
     text-align: center;
 }
+
+.bg-trans {
+    background-color: rgba(255, 255, 255, 0.75);
+}
