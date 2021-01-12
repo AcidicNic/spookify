@@ -1,20 +1,13 @@
-
-
+{{#if err}}
+    <div class="home-txtbox text-dark d-block bg-white p-4">
+        <div class="mx-4 my-4 px-4 text-center">
+            <h4>Oops!</h4>
+            <p>Something went wrong...</p>
+        </div>
+    </div>
+{{else}}
 <div id="resultsCarousel" class="carousel slide carousel-fade" data-wrap="false" data-interval="false">
     <div class="carousel-inner text-dark">
-        <ol class="carousel-indicators text-dark">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="9"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="10"></li>
-        </ol>
         <div class="carousel-item active bg-white p-4">
             <div class="mx-4 my-4 px-4">
                 OooOooOOOOoOooOOo<br>
@@ -99,7 +92,7 @@
                 <ol>
                     {{#each topTracks}}
                     <li>
-                        <a href="{{this.external_urls.spotify}}">{{this.name}}</a> | 
+                        <a href="{{this.external_urls.spotify}}">{{this.name}}</a> |
                         {{#ifGreater this.artists.length 1}}{{#each this.artists}}{{#if @last}}{{this.name}}{{else}} {{this.name}}, {{/if}}{{/each}}
                         {{else}}{{this.artists.0.name}}
                         {{/ifGreater}}
@@ -118,3 +111,4 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+{{/if}}

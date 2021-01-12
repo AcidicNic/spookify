@@ -43,14 +43,11 @@ router.get('/result', async (req, res) => {
     try {
         var topTracksRaw = await spotifyApi.getMyTopTracks();
         var topTracks = topTracksRaw.body.items;
-        console.log(topTracks);
 
         var topArtistsRaw = await spotifyApi.getMyTopArtists();
         var topArtists = topArtistsRaw.body.items;
-        console.log(topArtists);
 
         var popularityAvg = getPopularityAvg(topArtists, topTracks)
-        console.log(popularityAvg);
 
         spotifyApi.resetAccessToken();
         res.render("results", {topArtists, topTracks, popularityAvg});
