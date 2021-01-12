@@ -1,41 +1,82 @@
 
 
+<div id="resultsCarousel" class="carousel slide carousel-fade" data-wrap="false" data-interval="false">
+    <div class="carousel-inner text-dark">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-item active bg-white p-4">
+            <div class="mx-4 my-4 px-4">
+                Hmm<sup>m<sup>m<sup>m<sup>m...</sup></sup></sup></sup> I see.<br>
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4">
+            <div class="mx-4 my-4 px-4">
+                Wow! You must really like {{topArtists.0.name}}.<br>
+                I noticed that you listen to their music a whole bunch.<br>
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4">
+            <div class="mx-4 my-4 px-4">
+                Oh and let me guess, your favorite song is.....<br>
+                {{topTracks.0.name}} by
+                {{#ifGreater topTracks.0.artists.length 1}}
+                    {{#each topTracks.0.artists}}{{#if @last}}{{this.name}}{{else}} {{this.name}}, {{/if}}{{/each}}<br>
+                {{else}}
+                    {{topTracks.0.artists.0.name}}<br>
+                {{/ifGreater}}
+            </div>
+        </div>
+        <div class="carousel-item bg-white p-4">
+            <div class="mx-4 my-4 px-4">
+                Now let's see how popular the music you listen to is.<br>
+                {{#ifGreater popularityAvg 50}}
+                    I'm sensing that you're mostly into well known music.<br>
+                {{else}}
+                    I'm sensing that you're mostly into obscure music.<br>
+                {{/ifGreater}}
+                I'd probably give you a {{popularityAvg}}/100 on the popularity scale.<br>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#resultsCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#resultsCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 
-
-
-
-
-
-
-<!-- This is temporary, it's just for proof of concept :) -->
-<div>
+<div class="dd-none">
     <h3>Your Top Artists</h3>
     {{#each topArtists}}
         <a href="{{this.external_urls.spotify}}">{{this.name}}</a><br>
-        genres: {{#each this.genres}} {{this}}, {{/each}}<br>
+        {{#if this.genres}}
+            {{#ifGreater this.genres.length 1}}
+                genres: {{#each this.genres}}{{#if @last}}{{this}}{{else}}{{this}}, {{/if}}{{/each}}<br>
+            {{else}}
+                genre: {{this.genres}}<br>
+            {{/ifGreater}}
+        {{/if}}
         followers: {{this.followers.total}}<br>
         popularity: {{this.popularity}}
         <br><br>
     {{/each}}
-</div>
 
-<br><br><br>
-
-<div>
+    <br><br><br>
     <h3>Your Top Tracks</h3>
     {{#each topTracks}}
-        track: <a href="{{this.external_urls.spotify}}">{{this.name}}</a><br>
-
-        {{#ifEqls this.album.album_type 'ALBUM' }}
+        <a href="{{this.external_urls.spotify}}">{{this.name}}</a><br>
         album: <a href="{{this.album.external_urls.spotify}}">{{this.album.name}}</a><br>
-        track number: {{this.track_number}} / {{this.album.total_tracks}}<br>
-        {{/ifEqls}}
+        {{#ifGreater this.artists.length 1}}
+            artists: {{#each this.artists}}{{#if @last}}{{this.name}}{{else}} {{this.name}}, {{/if}}{{/each}}<br>
+        {{else}}
+            artist: {{this.artists.0.name}}<br>
+        {{/ifGreater}}
 
-        {{#ifEqls this.album.album_type 'SINGLE' }}
-        album: {{this.album.name}} (Single)<br>
-        {{/ifEqls}}
-
-        artist(s): {{# each this.artists}} {{this.name}}, {{/each}}<br>
         popularity: {{this.popularity}}<br>
         release date: {{this.album.release_date}}<br>
         <br><br>

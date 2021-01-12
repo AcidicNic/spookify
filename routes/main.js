@@ -5,7 +5,7 @@ const router = express.Router();
 // Spotify API wrapper setup
 const SpotifyWebApi = require('spotify-web-api-node');
 
-const scopes = ['user-read-private', 'user-read-email', 'user-library-read', 'user-follow-read', 'user-top-read'],
+const scopes = ['user-follow-read', 'user-top-read'],
     redirectUri = process.env.SPOTIFY_REDIRECT_URI,
     clientId = process.env.SPOTIFY_ID,
     showDialog = true,
@@ -49,14 +49,27 @@ router.get('/result', async (req, res) => {
         var topArtists = topArtistsRaw.body.items;
         console.log(topArtists);
 
+        var popularityAvg = getPopularityAvg(topArtists, topTracks)
+        console.log(popularityAvg);
+
         spotifyApi.resetAccessToken();
-        res.render("results", {topArtists, topTracks});
+        res.render("results", {topArtists, topTracks, popularityAvg});
 
     } catch (err) {
         console.log(err);
         res.render("results", {err});
     }
-
 });
+
+function getPopularityAvg(artists, tracks) {
+    var popularityTOT = 0;
+    for (i = 0; i < artists.length; i++) {
+        popularityTOT += artists[i].popularity;
+    }
+    for (i = 0; i < tracks.length; i++) {
+        popularityTOT += tracks[i].popularity;
+    }
+    return Math.round(popularityTOT / (tracks.length + artists.length));
+}
 
 module.exports = router;

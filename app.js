@@ -15,9 +15,17 @@ app.engine('hbs', hbs({
     layoutDir: __dirname + '/views',
     defaultLayout: 'base',
     helpers: {
-        // {{#ifEqls true false}} this will not be displayed {{/ifEqls}}
+        // {{#ifEqls true false}} {{/ifEqls}}
         ifEqls: function(arg, arg2, options) {
         return (arg == arg2) ? options.fn(this) : options.inverse(this);
+        },
+        // {{#ifGreater int int}} {{/ifGreater}}
+        ifGreater: function(arg, arg2, options) {
+        return (arg > arg2) ? options.fn(this) : options.inverse(this);
+        },
+        // {{#ifLessOrEql int int}} {{/ifLessOrEql}}
+        ifLessOrEql: function(arg, arg2, options) {
+        return (arg <= arg2) ? options.fn(this) : options.inverse(this);
         }
     }
 }));

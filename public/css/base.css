@@ -2,3 +2,12 @@ body {
     background-color: #000;
     color: #fff;
 }
+
+.carousel-control-next-icon, .carousel-control-prev-icon  {
+    filter: invert(1);
+}
+
+.carousel-item, .home-txtbox {
+    border-radius: 15px;
+    text-align: center;
+}
