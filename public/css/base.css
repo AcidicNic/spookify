@@ -15,3 +15,7 @@ body {
 .bg-trans {
     background-color: rgba(255, 255, 255, 0.75);
 }
+
+.ghost-mobile {
+    object-fit: contain;
+}
