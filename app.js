@@ -3,6 +3,12 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+
+// Express Device Setup
+app.set('view engine', 'ejs');
+var device = require('express-device');
+app.use(device.capture());
+
 // Bodyparser Setup
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());

@@ -5,7 +5,7 @@ const router = express.Router();
 // Spotify API wrapper setup
 const SpotifyWebApi = require('spotify-web-api-node');
 
-const scopes = ['user-follow-read', 'user-top-read'],
+const scopes = ['user-top-read'],
     redirectUri = process.env.SPOTIFY_REDIRECT_URI,
     clientId = process.env.SPOTIFY_ID,
     showDialog = true,
@@ -20,7 +20,11 @@ const spotifyApi = new SpotifyWebApi({
 
 /* Get home page */
 router.get('/', (req, res) => {
-    res.render("home");
+    if(req.device.type === 'phone'){
+        res.render("homeMobile");
+    } else {
+        res.render("home");
+    }
 });
 
 /* Redirects user to our custom Spotify auth URL */
@@ -50,11 +54,19 @@ router.get('/result', async (req, res) => {
         var popularityAvg = getPopularityAvg(topArtists, topTracks)
 
         spotifyApi.resetAccessToken();
-        res.render("results", {topArtists, topTracks, popularityAvg});
+        if(req.device.type === 'phone'){
+            res.render("resultsMobile", {topArtists, topTracks, popularityAvg});
+        } else {
+            res.render("results", {topArtists, topTracks, popularityAvg});
+        }
 
     } catch (err) {
         console.log(err);
-        res.render("results", {err});
+        if(req.device.type === 'phone'){
+            res.render("resultsMobile", {err});
+        } else {
+            res.render("results", {err});
+        }
     }
 });
 
