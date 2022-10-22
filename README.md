@@ -1,5 +1,5 @@
 # Spookify
-Source code for [spookify.nicc.io](http://spookify.nicc.io)
+Source code for [spookify.nicc.io](https://spookify.nicc.io)
 
 ## How to run locally
 1. Get your Spotify API key [here](https://developer.spotify.com/dashboard/)
